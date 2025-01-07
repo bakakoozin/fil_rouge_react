@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+	line-height: 1.5;
+    font-family: sans-serif;
+    font-size: 1.6rem;
+    
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #515151;
+    height: 4em;
+}
+
+nav a{
+    color: #fff;
+    cursor: pointer;
+}
+
+#home, #details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+
+}
+
+.buttonMore{
+    border: 1px solid #686565;
+    border-radius: 5px;
+    padding: 0.3rem;
+    display: block;
+    text-align: center;
+    margin: auto;
+    width: 14rem;
+}
+
+h1 {
+    background-color: #fff;
+    color: #686565;
+    border: 1px solid #686565;
+    border-radius: 5px;
+    padding: 0.5rem;
+    display: block;
+    width: 90%;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    padding-left: 10px;
+    color: #515151;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    border:1px solid #686565;
+    border-radius: 5px;
+    width: 30%;
+    padding: 20px;
+}
+
+input {
+    width: 100px;
+    padding: 2px;
+    margin: 5px;
+}
+
+#login, #register {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+#login {
+    flex-direction: column;
+    align-items: center;
+}
+
+#login p {
+    text-transform: uppercase;
+}
