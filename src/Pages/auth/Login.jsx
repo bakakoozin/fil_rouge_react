@@ -33,7 +33,7 @@ function Login({ setCurrentUser }) {
 
   return (
     <main id="login">
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className="loginForm">
         <label htmlFor="username">Pseudo :</label>
         <input
           type="text"

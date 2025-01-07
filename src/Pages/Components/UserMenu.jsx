@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function UserMenu({onLogout}) {
   
   return (
     <>
-      <Link to={"/profile"}>Profil</Link>
+      <NavLink to={"/profile"}>Profil</NavLink>
       <Link to="/" className="disconnect" onClick={onLogout}>
         Déconnexion
       </Link>

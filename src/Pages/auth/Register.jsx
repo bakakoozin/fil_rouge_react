@@ -53,7 +53,7 @@ function Register() {
 
   return (
     <main id="register">
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className="registerForm">
         <label htmlFor="username">Pseudo :</label>
         <input
           type="text"

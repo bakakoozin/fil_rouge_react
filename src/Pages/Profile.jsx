@@ -24,30 +24,33 @@ function Profile() {
 
   return (
     <main id="profile">
-      <h1>Mon Profil</h1>
-      <form>
-        <label>
-          Nom d'utilisateur :
-          <input
-            type="text"
-            name="username"
-            value={updatedUser.username}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Mot de passe :
-          <input
-            type="password"
-            name="password"
-            value={updatedUser.password}
-            onChange={handleInputChange}
-          />
-        </label>
-        <button type="button" onClick={saveChanges}>
-          Enregistrer
-        </button>
-      </form>
+      <h1>Bienvenue sur ton profil "{updatedUser.username}"</h1>
+      <section>
+        <h2>Modifier les identifiants:</h2>
+        <form className="profileForm">
+          <label>
+            Nom d'utilisateur :
+            <input
+              type="text"
+              name="username"
+              value={updatedUser.username}
+              onChange={handleInputChange}
+            />
+          </label>
+          <label>
+            Mot de passe :
+            <input
+              type="password"
+              name="password"
+              value={updatedUser.password}
+              onChange={handleInputChange}
+            />
+          </label>
+          <button type="button" onClick={saveChanges}>
+            Enregistrer
+          </button>
+        </form>
+      </section>
     </main>
   );
 }

@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function AdminMenu() {
   return (
     <>
-      <Link to={"/admin"}>Admin</Link>
+      <NavLink to={"/admin"}>Admin</NavLink>
     </>
   );
 }

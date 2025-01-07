@@ -28,7 +28,7 @@ function Admin() {
       <section>
         <h2>Liste des utilisateurs</h2>
         {users.length > 0 ? (
-          <ul>
+          <ul className="userList">
             {users.map((user, index) => (
               <li key={index}>
                 {user.username} {user.isAdmin === 1 ? "(Admin)" : ""}
