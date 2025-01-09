@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
+import { PropTypes } from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-function Admin() {
+function HomeAdmin(props) {
   const navigate = useNavigate();
   const [users, setUsers] = useState(
     JSON.parse(localStorage.getItem("users")) || []
   );
 
   useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-    if (!currentUser || currentUser.isAdmin !== 1) {
+    if (!props.isAdmin) {
       alert("Accès refusé. Vous n'êtes pas administrateur.");
       navigate("/");
     }
-  }, [navigate]);
+  }, [navigate, props.isAdmin]);
 
   const deleteUser = (index) => {
     const updatedUsers = users.filter((_, i) => i !== index);
@@ -44,4 +43,10 @@ function Admin() {
   );
 }
 
-export default Admin;
+HomeAdmin.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  onClickLogoutHandler: PropTypes.func.isRequired,
+};
+
+export default HomeAdmin;

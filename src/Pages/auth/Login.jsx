@@ -1,65 +1,71 @@
 import { Link, useNavigate } from "react-router-dom";
-import React from "react";
+import { useRef, useState } from "react";
+import PropTypes from "prop-types";
 
-function Login({ setCurrentUser }) {
-  const [user, setUser] = React.useState("");
-  const [password, setPassword] = React.useState("");
+function Login(props) {
   const navigate = useNavigate();
 
-  function handleName(e) {
-    setUser(e.target.value);
-  }
+  const pseudoRef = useRef();
+  const passRef = useRef();
 
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
+  const [error, setError] = useState("");
 
-  function submitHandler(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    const userExists = users.find(
-      (u) => u.username === user && u.password === password
-    );
+    const pseudo = pseudoRef.current.value;
+    const password = passRef.current.value;
 
-    if (userExists) {
-      localStorage.setItem("currentUser", JSON.stringify(userExists));
-      setCurrentUser(userExists); // Met à jour l'état global
-      navigate("/");
-    } else {
-      alert("Nom d'utilisateur ou mot de passe incorrect");
+    const user = users.find((user) => user.pseudo === pseudo);
+
+    if (!user) {
+      setError("Pseudo incorrect");
+      return;
     }
-  };
+  
+    if (user.password !== password) {
+      setError("Mot de passe incorrect");
+      return;
+    }
+  
+    localStorage.setItem("isConnected", true);
+    localStorage.setItem("currentPseudo", user.pseudo);
+    props.setIsLogged(true);
+
+    if (user.admin === true) {
+      localStorage.setItem("isAdmin", true);
+      props.setIsAdmin(true);
+    } else {
+      localStorage.removeItem("isAdmin");
+      props.setIsAdmin(false);
+    }
+    navigate("/");
+  }
 
   return (
     <main id="login">
-      <form onSubmit={submitHandler} className="loginForm">
-        <label htmlFor="username">Pseudo :</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          value={user}
-          onChange={handleName}
-        />
-
-        <label htmlFor="password">Mot :</label>
+      <form onSubmit={handleSubmit} className="auth">
+        <input type="text" ref={pseudoRef} placeholder="Entrer votre pseudo" />
         <input
           type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={handlePassword}
+          ref={passRef}
+          placeholder="Entrer votre mot de passe"
         />
 
-        <button type="submit">Connexion</button>
+        {error && <p>{error}</p>}
+
+        <button type="submit">Se connecter</button>
       </form>
       <p>
-        Pas encore de compte ? :{" "}
-        <Link to={"/auth/register"}>Créer un compte</Link>
+        Pas de compte ? <Link to={"/auth/register"}>Créer un compte</Link>
       </p>
     </main>
   );
 }
+
+Login.propTypes = {
+  setIsLogged: PropTypes.func.isRequired,
+  setIsAdmin: PropTypes.func.isRequired,
+};
 
 export default Login;

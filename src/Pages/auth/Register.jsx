@@ -1,81 +1,88 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
-  const [user, setUser] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [pseudo, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const admin = false;
+  const [isUserValid, setIsUserValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  
   const navigate = useNavigate();
 
-  function handleName(e) {
+  function handleUser(e) {
     setUser(e.target.value);
+    if (e.target.value.length < 3) {
+      setIsUserValid(false);
+    } else {
+      setIsUserValid(true);
+    }
   }
 
   function handlePassword(e) {
     setPassword(e.target.value);
+    if (e.target.value.length < 4) {
+			setIsPasswordValid(false);
+		} else {
+			setIsPasswordValid(true);
+		}
   }
 
-  // function submitHandler(e) {
-  //   e.preventDefault();
-  //   console.log(`New User : ${user}, Password: ${password}`);
-  //   const userData = {
-  //     username: user,
-  //     password: password,
-  //   };
-  //   localStorage.setItem("user", JSON.stringify(userData));
-  //   console.log("User data saved to localStorage:", userData);
-  function submitHandler(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
-    if (!user || !password) {
-      alert("Veuillez saisir un nom d'utilisateur et un mot de passe.");
-      return;
-    }
+    if (isUserValid && isPasswordValid) {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const newUsers = [...users, { pseudo, password, admin }];
 
-    // Récupérer les utilisateurs existants depuis localStorage
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+      localStorage.setItem("users", JSON.stringify(newUsers));
 
-    // Vérifier si le nom d'utilisateur existe déjà
-    const userExists = existingUsers.find((u) => u.username === user);
-    if (userExists) {
-      alert("Ce nom d'utilisateur existe déjà. Veuillez en choisir un autre.");
-      return;
-    }
-
-    // Ajouter le nouvel utilisateur
-    const newUser = { username: user, password };
-    const updatedUsers = [...existingUsers, newUser];
-
-    // Mettre à jour localStorage
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-    console.log("Utilisateur enregistré :", newUser);
-	navigate("../../auth/login");
+      navigate("/auth/login");
   }
+}
 
-  return (
-    <main id="register">
-      <form onSubmit={submitHandler} className="registerForm">
-        <label htmlFor="username">Pseudo :</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          value={user}
-          onChange={handleName}
-        />
+return (
+<main id="register">
+<form onSubmit={handleSubmit} className="auth">
+  <input
+    type="text"
+    name="pseudo"
+    value={pseudo}
+    onChange={handleUser}
+    placeholder="Entrer votre pseudo"
+  />
+  <input
+    type="password"
+    name="password"
+    value={password}
+    onChange={handlePassword}
+    placeholder="Entrer votre mot de passe"
+  />
 
-        <label htmlFor="password">Mot de passe :</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={handlePassword}
-        />
+  <button type="submit">Créer le compte</button>
+</form>
 
-        <button type="submit">Créer compte</button>
-      </form>
-    </main>
-  );
+<p>
+  Vous avez déjà un compte ?{" "}
+  <Link to={"/auth/login"}>Connectez-vous</Link>
+</p>
+<aside className="validation password">
+  <p>L&apos;alias doit contenir :</p>
+  <ul>
+    <li className={!isUserValid ? "alert" : "success"}>
+      3 caractères minimum
+    </li>
+  </ul>
+  <p>Le mot de passe doit contenir :</p>
+  <ul>
+    <li className={!isPasswordValid ? "alert" : "success"}>
+      4 caractères minimum
+    </li>
+  </ul>
+</aside>
+
+</main>
+);
 }
 
 export default Register;

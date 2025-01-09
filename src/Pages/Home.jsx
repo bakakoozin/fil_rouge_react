@@ -35,7 +35,7 @@ function Home() {
           <p>Loading ...</p>
         ) : (
           datas.map((data) => (
-            <div key={data.id}>
+            <div key={data.id} className="card">
               <Card data={data} />
               <Link to={"details/"+ data.id} className="buttonMore">Plus de détails</Link>
             </div>
