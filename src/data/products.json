@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "label": "Terra prime 1. La colonie",
+    "imgUrl": "",
+    "description": "Une BD de Philippe Ogaki chez Delcourt (Neopolis) - 2015",
+    "price": 10
+  },
+  {
+    "id": 2,
+    "label": "Terra prime 2. Déicide",
+    "imgUrl": "",
+    "description": "Une BD de Philippe Ogaki chez Delcourt (Neopolis) - 2016",
+    "price": 7
+  },
+  {
+    "id": 3,
+    "label": "Terra prime 3. Deuil",
+    "imgUrl": "",
+    "description": "Une BD de Philippe Ogaki chez Delcourt (Neopolis) - 2017",
+    "price": 10
+  },
+  {
+    "id": 4,
+    "label": "Terra prime 4. Le Dieu",
+    "imgUrl": "",
+    "description": "Une BD de Philippe Ogaki chez Delcourt (Neopolis) - 2018",
+    "price": 14
+  },
+  {
+    "id": 5,
+    "label": "Shangri-La",
+    "imgUrl": "",
+    "description": "Une BD de Mathieu Bablet chez Ankama Éditions (Label 619) - 2016",
+    "price": 18
+  },
+  {
+    "id": 6,
+    "label": "Frontier",
+    "imgUrl": "",
+    "description": "Une BD de Guillaume Singelin chez Rue de Sèvres (Label 619) - 2023",
+    "price": 16
+  },
+  {
+    "id": 7,
+    "label": " Androïdes (Soleil) 1. Résurrection",
+    "imgUrl": "",
+    "description": "Une BD de Jean-Luc Istin et Jesús Hervás Millán chez Soleil Productions (Anticipation) - 2016",
+    "price": 25
+  },
+  {
+    "id": 8,
+    "label": "Androïdes (Soleil) 2. Heureux qui comme Ulysse",
+    "imgUrl": "",
+    "description": "Une BD de Olivier Peru et GeyseR chez Soleil Productions (Anticipation) - 2016",
+    "price": 25
+  },
+  {
+    "id": 9,
+    "label": "Androïdes (Soleil) 3. Invasion",
+    "imgUrl": "",
+    "description": "Une BD de Sylvain Cordurié et Emmanuel Nhieu chez Soleil Productions (Anticipation) - 2016",
+    "price": 25
+  },
+  {
+    "id": 10,
+    "label": "Androïdes (Soleil) 4. Les larmes de Kielko",
+    "imgUrl": "",
+    "description": "Une BD de Jean-Charles Gaudin et Viska chez Soleil Productions (Anticipation) - 2017",
+    "price": 19
+  }
+]

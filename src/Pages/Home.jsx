@@ -28,7 +28,7 @@ function Home() {
   return (
     <main id="home">
       <section>
-        <h1>Les données récupérées de jsonplaceholder :</h1>
+        <h1>La liste des BD</h1>
 
         {error && <p>{error}</p>}
         {!datas && !error ? (

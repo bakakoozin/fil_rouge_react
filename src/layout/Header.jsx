@@ -1,14 +1,20 @@
 import { NavLink, Link } from "react-router-dom";
-import { PropTypes } from "prop-types";
-import { useState, } from "react";
+import { useState, useContext } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import logo from "/logo_bakadev.jpg";
+import logo from "/logo_bakadev_invert.jpg";
+import logoDark from "/logo_bakadev.jpg";
+import { AuthContext } from "../App/AuthProvider";
+import { CartContext } from "../App/CartProvider";
+import { ThemeContext } from "../App/ThemeProvider";
 
-function Header(props) {
+function Header() {
+  const { isLogged, isAdmin, onClickLogoutHandler } = useContext(AuthContext);
   const [isToggle, setIsToggle] = useState(false);
+  const { cart } = useContext(CartContext);
+  const { isDarkMode } = useContext(ThemeContext);
 
   function onClickHandler() {
     setIsToggle(!isToggle);
@@ -20,8 +26,12 @@ function Header(props) {
 
   return (
     <header>
-      <Link to="/" title="Go to home page">
-        <img src={logo} alt="Logo Bakadev" className="logo" />
+      <Link to="/" title="Retour à l'accueil">
+        <img
+          src={isDarkMode ? logo : logoDark}
+          alt="Logo Bakadev"
+          className="logo"
+        />
       </Link>
       {isToggle ? (
         <nav>
@@ -31,20 +41,20 @@ function Header(props) {
           <NavLink to="/" onClick={closeMenu}>
             Accueil
           </NavLink>
-          {props.isLogged ? (
+          <NavLink to="/cart" end onClick={closeMenu}>
+            Panier ({cart.length})
+          </NavLink>
+          {isLogged ? (
             <>
               <NavLink to="/profile" onClick={closeMenu}>
                 Profil
               </NavLink>
-              {props.isAdmin && (
+              {isAdmin && (
                 <NavLink to="/Admin/admin" onClick={closeMenu}>
                   Admin
                 </NavLink>
               )}
-              <button
-                onClick={props.onClickLogoutHandler}
-                className="cta logout"
-              >
+              <button onClick={onClickLogoutHandler} className="cta logout">
                 Déconnexion
               </button>
             </>
@@ -62,11 +72,5 @@ function Header(props) {
     </header>
   );
 }
-
-Header.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
-  onClickLogoutHandler: PropTypes.func.isRequired,
-};
 
 export default Header;

@@ -1,22 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "../App/ThemeProvider";
 
 function Profile() {
-  // Récupérer tous les utilisateurs depuis localStorage
+
   const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Récupérer le pseudo de l'utilisateur connecté depuis localStorage
+  const { isDarkMode, toggleDarkMode} = useContext(ThemeContext);
   const [user, setUser] = useState(() => {
-    const currentPseudo = localStorage.getItem("currentPseudo"); // Récupérer le pseudo de l'utilisateur connecté
+    const currentPseudo = localStorage.getItem("currentPseudo");
     if (currentPseudo) {
-      return users.find((u) => u.pseudo === currentPseudo) || {}; // Trouver l'utilisateur avec le pseudo
+      return users.find((u) => u.pseudo === currentPseudo) || {};
     }
-    return {}; // Si aucun utilisateur connecté, retourner un objet vide
+    return {};
   });
 
   const [updatedUser, setUpdatedUser] = useState(user);
 
   useEffect(() => {
-    setUpdatedUser(user); // Synchroniser avec l'utilisateur connecté
+    setUpdatedUser(user);
   }, [user]);
 
   const handleInputChange = (e) => {
@@ -28,11 +29,10 @@ function Profile() {
       u.pseudo === user.pseudo ? updatedUser : u
     );
 
-    // Enregistrer les utilisateurs mis à jour dans localStorage
     localStorage.setItem("users", JSON.stringify(updatedUsers));
-    localStorage.setItem("currentPseudo", updatedUser.pseudo); // Mettre à jour le pseudo de l'utilisateur connecté
+    localStorage.setItem("currentPseudo", updatedUser.pseudo);
 
-    setUser(updatedUser); // Mettre à jour l'état de l'utilisateur connecté
+    setUser(updatedUser);
     alert("Profil mis à jour avec succès !");
   };
 
@@ -64,6 +64,9 @@ function Profile() {
             Valider
           </button>
         </form>
+        <button onClick={toggleDarkMode}>
+					{isDarkMode ? "Light" : "Dark"} Mode
+				</button>
       </section>
     </main>
   );

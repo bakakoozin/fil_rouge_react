@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
-import PropTypes from "prop-types";
+import { useRef, useState, useContext } from "react";
+import { AuthContext } from "../../App/AuthProvider";
 
-function Login(props) {
+function Login() {
+  const {setIsLogged, setIsAdmin} = useContext(AuthContext)
   const navigate = useNavigate();
 
   const pseudoRef = useRef();
@@ -30,14 +31,14 @@ function Login(props) {
   
     localStorage.setItem("isConnected", true);
     localStorage.setItem("currentPseudo", user.pseudo);
-    props.setIsLogged(true);
+    setIsLogged(true);
 
     if (user.admin === true) {
       localStorage.setItem("isAdmin", true);
-      props.setIsAdmin(true);
+      setIsAdmin(true);
     } else {
       localStorage.removeItem("isAdmin");
-      props.setIsAdmin(false);
+      setIsAdmin(false);
     }
     navigate("/");
   }
@@ -62,10 +63,5 @@ function Login(props) {
     </main>
   );
 }
-
-Login.propTypes = {
-  setIsLogged: PropTypes.func.isRequired,
-  setIsAdmin: PropTypes.func.isRequired,
-};
 
 export default Login;

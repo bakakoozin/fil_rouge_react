@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
-import { PropTypes } from "prop-types";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../App/AuthProvider";
 
-function HomeAdmin(props) {
+function HomeAdmin() {
+  const {isAdmin} = useContext(AuthContext)
   const navigate = useNavigate();
   const [users, setUsers] = useState(
     JSON.parse(localStorage.getItem("users")) || []
   );
 
   useEffect(() => {
-    if (!props.isAdmin) {
+    if (!isAdmin) {
       alert("Accès refusé. Vous n'êtes pas administrateur.");
       navigate("/");
     }
-  }, [navigate, props.isAdmin]);
+  }, [navigate, isAdmin]);
 
   const deleteUser = (index) => {
     const updatedUsers = users.filter((_, i) => i !== index);
@@ -42,11 +43,5 @@ function HomeAdmin(props) {
     </main>
   );
 }
-
-HomeAdmin.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
-  onClickLogoutHandler: PropTypes.func.isRequired,
-};
 
 export default HomeAdmin;
