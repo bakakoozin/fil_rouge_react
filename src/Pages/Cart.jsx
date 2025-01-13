@@ -20,7 +20,7 @@ function Cart() {
                         <li key={item.id}>
                             <p>{item.title}</p>
                             <p>Quantité: {item.quantity}</p>
-                            <p>Prix: €{(item.price || 0) * item.quantity}</p>
+                            <p>Prix: {(item.price || 0) * item.quantity} €</p>
                             <button onClick={() => removeFromCart(item.id)}>
                                 Enlever
                             </button>
@@ -28,7 +28,7 @@ function Cart() {
                     ))}
                 </ul>
             )}
-            <h2>Total: €{totalAmount}</h2>
+            <h2>Total: {totalAmount} €</h2>
         </div>
     );
 }
